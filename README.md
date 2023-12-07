@@ -50,13 +50,15 @@ logo_bg_vanisher --file <file_path> [--resize <width,height>] [--crop <method>] 
 or
 ```shell
 logo_bg_vanisher --input_path <folder_path> [--resize <width,height>] [--crop <method>] --method pillow
+```
 
 ### Using Rembg
-Replace the method with '--method rembg'
+```shell
+logo_bg_vanisher --file <file_path> [--resize <width,height>] [--crop <method>] --method rembg
+```
 
 Replace <file_path> or <folder_path> with your image or folder's path. 
-For resizing, input width,height or just width for aspect ratio: --resize 512,512 
-For cropping, use auto for automatic or width,height for manual: --crop auto
+
 
 ## Requirements
 - Python 3.7 or higher
