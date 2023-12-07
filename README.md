@@ -30,7 +30,7 @@ completely removing backgrounds, resizing and cropping.
 
 ### Step 3, resizing (to half the size):
 <p style="display: flex; align-items: center; justify-content: center; background-color: gray;">
-  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_scaled_cropped.png"  style="width: 256px; height: auto; "/>
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_scaled_cropped.png"  style="width: 128px; height: auto; "/>
 </p>
 
 ## Installation
