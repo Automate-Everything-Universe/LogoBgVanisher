@@ -14,23 +14,23 @@ completely removing backgrounds, resizing and cropping.
 
 ## Example
 ### Original image generated with DALL-E 3:
-<p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL.png"/>
+<p style="display: flex; align-items: center; justify-content: center; background-color: gray;">
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL.png"  style="width: 256px; height: auto;"/>
 </p>
 
 ### Step 1, removing background:
-<p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow.png"/>
+<p style="display: flex; align-items: center; justify-content: center; background-color: gray;">
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow.png"  style="width: 256px; height: auto;"/>
 </p>
 
 ### Step 2, auto-cropping:
-<p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_cropped.png"/>
+<p style="display: flex; align-items: center; justify-content: center; background-color: gray;">
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_cropped.png"  style="width: 256px; height: auto;"/>
 </p>
 
 ### Step 3, resizing (to half the size):
-<p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_scaled_cropped.png"/>
+<p style="display: flex; align-items: center; justify-content: center; background-color: gray;">
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_scaled_cropped.png"  style="width: 128px; height: auto; "/>
 </p>
 
 ## Installation
@@ -44,16 +44,21 @@ Run the following commands in your terminal:
 
 ### Using Pillow
 To use Pillow, run: 
+```shell
 logo_bg_vanisher --file <file_path> [--resize <width,height>] [--crop <method>] --method pillow
+```
 or
+```shell
 logo_bg_vanisher --input_path <folder_path> [--resize <width,height>] [--crop <method>] --method pillow
+```
 
 ### Using Rembg
-Replace the method with '--method rembg'
+```shell
+logo_bg_vanisher --file <file_path> [--resize <width,height>] [--crop <method>] --method rembg
+```
 
 Replace <file_path> or <folder_path> with your image or folder's path. 
-For resizing, input width,height or just width for aspect ratio: --resize 512,512 
-For cropping, use auto for automatic or width,height for manual: --crop auto
+
 
 ## Requirements
 - Python 3.7 or higher
