@@ -1,6 +1,7 @@
 """
 Module to handle file operations
 """
+import os
 from pathlib import Path
 from typing import List
 from typing import Tuple
@@ -26,10 +27,15 @@ def find_files(path: Path, extension: Union[str, Tuple, None]) -> List[Path]:
 
 def load_image(picture: Path) -> Union[Image, None]:
     try:
+        if not picture.exists():
+            raise ValueError('The picture could not be found!')
+        if not os.access(picture, os.R_OK):
+            raise PermissionError(f"Permission denied for file {picture} !")
         if picture:
             image_creator = CreatePillowImage()
             image_obj = image_creator.convert_image(file=picture)
             return image_obj
-    except OSError as e:
-        print(f"Error opening image: {e}")
-        return None
+    except PermissionError as exc:
+        raise PermissionError(f"Permission error: {exc}") from exc
+    except OSError as exc:
+        raise OSError(f"Error opening image: {exc}") from exc

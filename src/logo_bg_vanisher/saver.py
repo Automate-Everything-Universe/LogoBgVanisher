@@ -24,7 +24,7 @@ class SavePic:
             filename = Path(self.image.filename)
             output_path = filename.parent / f"{filename.stem}{suffix}.png"
             self.image.save(output_path, "PNG")
-        except OSError as e:
-            print(f"Error saving image: {e}")
-        except ValueError as e:
-            print(f"Invalid image: {e}")
+        except OSError as exc:
+            raise OSError(f"Error saving image: {exc}") from exc
+        except ValueError as exc:
+            raise ValueError(f"Invalid image: {exc}") from exc
