@@ -116,11 +116,11 @@ def main() -> None:
             print("Done!")
 
     except FileNotFoundError as exc:
-        raise FileNotFoundError(f"The file was not {pic} found") from exc
+        raise FileNotFoundError(f"The file was not found") from exc
     except PermissionError as exc:
-        raise PermissionError(f"Permission denied for file {pic}") from exc
+        raise PermissionError(f"Permission denied for file") from exc
     except OSError as exc:
-        raise OSError(f"An error occurred while opening the file {pic}: {exc}") from exc
+        raise OSError(f"An error occurred while opening the file: {exc}") from exc
     except Exception as exc:
         raise Exception(f"An unexpected error occurred: {exc}") from exc
 
