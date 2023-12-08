@@ -36,7 +36,6 @@ def load_image(picture: Path) -> Union[Image, None]:
             image_obj = image_creator.convert_image(file=picture)
             return image_obj
     except PermissionError as exc:
-        raise PermissionError(f"Permission error: {exc}")
+        raise PermissionError(f"Permission error: {exc}") from exc
     except OSError as exc:
-        print(f"Error opening image: {exc}")
-        return None
+        raise OSError(f"Error opening image: {exc}") from exc
