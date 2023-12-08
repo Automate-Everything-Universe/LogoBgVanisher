@@ -71,5 +71,5 @@ MIT License. See LICENSE for details.
 ## Contact
 Reach out at info@automate-everything-company.com for support or inquiries.
 
-## cknowledgments
+## Acknowledgments
 Inspired by Daniel Gatis's rembg (https://github.com/danielgatis/rembg).
