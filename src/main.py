@@ -72,12 +72,12 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
             scaler.width = width
             scaler.height = height
             image_object = scaler.set_size()
-            suffix = suffix + "_scaled"
+            suffix = suffix + "_resized"
         else:
             width = int(user_args.resize)
             scaler.width = width
             image_object = scaler.set_size()
-            suffix = suffix + "_scaled"
+            suffix = suffix + "_resized"
 
     # Crop
     if user_args.crop:
