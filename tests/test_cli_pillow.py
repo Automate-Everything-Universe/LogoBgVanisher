@@ -53,7 +53,7 @@ def test_cli_pillow(file, expected_pillow):
 
 
 def test_cli_pillow_cropped(file, expected_pillow_cropped):
-    command = ["python", str(MAIN), "--file", str(file), "--method", "pillow", "--cropped", "512"]
+    command = ["python", str(MAIN), "--file", str(file), "--method", "pillow", "--crop", "auto"]
 
     result = subprocess.run(command, capture_output=True, check=True, timeout=180, cwd=TEST_FOLDER)
 
