@@ -1,5 +1,5 @@
 """
-Module which handles background removal from pics using Rmbgr
+Module which handles background removal from pics using Rembgr
 """
 import rembg
 from PIL import Image
@@ -11,7 +11,7 @@ class RembgBackgroundRemoval(BackgroundRemovalStrategy):
     def __init__(self, img):
         super().__init__(img)
         self.filename = img.filename
-        self.suffix = "rmbgr_converted"
+        self.suffix = "rembgr_converted"
 
     def remove_background(self) -> Image:
         if self.image is None or not hasattr(self.image, 'convert'):

@@ -20,10 +20,10 @@ def extract_remover_type(args):
     remover: BackgroundRemovalStrategy
     if args.method == "pillow":
         remover = PillowBackgroundRemoval(tolerance=50, edge_tolerance=50)
-    elif args.method == "rmbgr":
+    elif args.method == "rembgr":
         remover = RembgBackgroundRemoval()
     else:
-        raise ValueError("Method must be either 'pillow' or 'rmbgr'.")
+        raise ValueError("Method must be either 'pillow' or 'rembgr'.")
     return remover
 
 
@@ -36,7 +36,7 @@ def parse_arguments():
         prog='LogoBgVanisher',
         description='Can do the following image processing operations:\n'
                     '- Makes image background transparent (method: pillow)\n'
-                    '- Removes image background (method: rmbg)\n'
+                    '- Removes image background (method: rembg)\n'
                     '- Resizes image\n'
                     '- Crops image\n'
     )
@@ -44,7 +44,7 @@ def parse_arguments():
     group.add_argument("--file", help="File absolute path")
     group.add_argument("--input_path", help="Folder absolute path")
 
-    parser.add_argument("--method", choices=["pillow", "rmbg"], required=True, help="Background removal method")
+    parser.add_argument("--method", choices=["pillow", "rembg"], required=True, help="Background removal method")
     parser.add_argument("--resize", help="Resize the image. Format: 'width,height' or 'width' for aspect ratio")
     parser.add_argument("--crop", help="Crop the image. Use 'auto' for autocrop or 'width,height' for manual crop")
     parser.add_argument('--verbose', action='store_true', help="Debug mode")
@@ -59,10 +59,10 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
         remover = PillowBackgroundRemoval(img=image_object)
         image_object = remover.remove_background()
         suffix = suffix + "_converted_pillow"
-    elif user_args.method == "rmbg":
+    elif user_args.method == "rembg":
         remover = RembgBackgroundRemoval(img=image_object)
         image_object = remover.remove_background()
-        suffix = suffix + "_converted_rmbg"
+        suffix = suffix + "_converted_rembg"
 
     # Resize
     if user_args.resize:
@@ -72,12 +72,12 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
             scaler.width = width
             scaler.height = height
             image_object = scaler.set_size()
-            suffix = suffix + "_scaled"
+            suffix = suffix + "_resized"
         else:
             width = int(user_args.resize)
             scaler.width = width
             image_object = scaler.set_size()
-            suffix = suffix + "_scaled"
+            suffix = suffix + "_resized"
 
     # Crop
     if user_args.crop:
