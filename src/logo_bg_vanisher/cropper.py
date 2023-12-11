@@ -8,6 +8,8 @@ from typing import Union
 
 from PIL import Image
 
+from src.logo_bg_vanisher.utils_validation import are_numbers_valid, is_string_valid
+
 
 class Cropper(ABC):
     """
@@ -46,6 +48,12 @@ class AutoCropper(Cropper):
         cropped_image.filename = self.filename
         return cropped_image
 
+    @staticmethod
+    def validate_input(text: str) -> str:
+        text = is_string_valid(text=text)
+        if text != "auto":
+            raise ValueError("Instance attribute has to be 'auto'")
+
 
 class ManualCropper(Cropper):
     """
@@ -56,16 +64,12 @@ class ManualCropper(Cropper):
         super().__init__(self)
         self.image = img
         self.filename = img.filename
-        self.dimensions = dimensions
+        self.dimensions = are_numbers_valid(*dimensions)
 
     def crop_image(self) -> Image:
         if not self.dimensions:
             msg = "No dimensions provided. Dimensions must be a tuple of four integers (left, upper, right, lower)"
             raise ValueError(msg)
-
-        if not all(isinstance(n, int) for n in self.dimensions):
-            raise TypeError("All dimensions must be integers")
-
         if len(self.dimensions) != 4:
             raise ValueError(
                 "Dimensions must be a tuple of four integers (left, upper, right, lower)"
