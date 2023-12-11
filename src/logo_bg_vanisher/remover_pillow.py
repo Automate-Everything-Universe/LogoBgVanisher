@@ -16,14 +16,14 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
     It identifies the first pixel (upper left), which is background, and not the logo itself.
     """
 
-    def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50):
+    def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50, suffix: str = "_pillow_converted"):
         super().__init__(img)
         self.validate_image(image=img)
         self.tolerances = self.validate_tolerences(tolerance=tolerance, edge_tolerance=edge_tolerance)
         self.filename = img.filename
         self.tolerance = self.tolerances[0]
         self.edge_tolerance = self.tolerances[1]
-        self.suffix = "pillow_converted"
+        self.suffix = self.validate_suffix(suffix)
 
     def remove_background(self) -> Image:
         if self.image is None or not hasattr(self.image, 'convert'):
@@ -78,3 +78,15 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
         if not any((isinstance(tolerance, int), isinstance(edge_tolerance, int))):
             raise ValueError(f"Width and height are not int {type(tolerance), type(edge_tolerance)}")
         return tolerance, edge_tolerance
+
+    @staticmethod
+    def validate_suffix(suffix_: str) -> str:
+        """
+        Validates the tolerances
+        :param suffix_: Suffix to be added to pic name
+        :return: Suffix
+        """
+        if not isinstance(suffix_, str):
+            raise ValueError(f"Suffix must be string ")
+        return suffix_
+
