@@ -8,6 +8,7 @@ from PIL import Image
 from PIL import ImageFilter
 
 from .background_remover import BackgroundRemovalStrategy
+from .utils_validation import is_string_valid, are_numbers_valid
 
 
 class PillowBackgroundRemoval(BackgroundRemovalStrategy):
@@ -19,11 +20,11 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
     def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50, suffix: str = "_pillow_converted"):
         super().__init__(img)
         self.validate_image(image=img)
-        self.tolerances = self.validate_tolerences(tolerance=tolerance, edge_tolerance=edge_tolerance)
+        self.tolerances = are_numbers_valid(tolerance, edge_tolerance)
         self.filename = img.filename
         self.tolerance = self.tolerances[0]
         self.edge_tolerance = self.tolerances[1]
-        self.suffix = self.validate_suffix(suffix)
+        self.suffix = is_string_valid(text=suffix)
 
     def remove_background(self) -> Image:
         if self.image is None or not hasattr(self.image, 'convert'):
