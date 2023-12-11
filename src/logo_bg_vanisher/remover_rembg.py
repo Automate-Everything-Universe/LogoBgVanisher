@@ -9,7 +9,7 @@ from .utils_validation import is_string_valid
 
 
 class RembgBackgroundRemoval(BackgroundRemovalStrategy):
-    def __init__(self, img, suffix: str = "_rembgr_converted"):
+    def __init__(self, img, suffix: str = "_rembg_converted"):
         super().__init__(img)
         self.filename = img.filename
         self.suffix = is_string_valid(text=suffix)
