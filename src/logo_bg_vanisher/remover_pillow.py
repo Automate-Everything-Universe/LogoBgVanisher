@@ -1,6 +1,9 @@
 """
 Module which handles background removal from pics using Pillow
 """
+from typing import Tuple
+
+import PIL
 from PIL import Image
 from PIL import ImageFilter
 
@@ -15,9 +18,11 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
 
     def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50):
         super().__init__(img)
+        self.validate_image(image=img)
+        self.tolerances = self.validate_tolerences(tolerance=tolerance, edge_tolerance=edge_tolerance)
         self.filename = img.filename
-        self.tolerance = tolerance
-        self.edge_tolerance = edge_tolerance
+        self.tolerance = self.tolerances[0]
+        self.edge_tolerance = self.tolerances[1]
         self.suffix = "pillow_converted"
 
     def remove_background(self) -> Image:
@@ -50,3 +55,26 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
                     new_data.append(item)
         img.putdata(new_data)
         return img
+
+    @staticmethod
+    def validate_image(image: Image) -> bool:
+        """
+        Validates the image object
+        :param image: Image
+        :return: bool
+        """
+        if not isinstance(image, Image.Image):
+            raise ValueError(f"Provided object not of type {type(image)}")
+        return True
+
+    @staticmethod
+    def validate_tolerences(tolerance: int, edge_tolerance: int) -> Tuple[int, int]:
+        """
+        Validates the tolerances
+        :param tolerance: Background tolerance
+        :param edge_tolerance: Edge tolerance
+        :return: tolerance, edge_tolerance
+        """
+        if not any((isinstance(tolerance, int), isinstance(edge_tolerance, int))):
+            raise ValueError(f"Width and height are not int {type(tolerance), type(edge_tolerance)}")
+        return tolerance, edge_tolerance
