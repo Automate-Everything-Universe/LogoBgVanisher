@@ -66,16 +66,16 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
 
     # Resize
     if user_args.resize:
-        scaler = ManualSizer(img=image_object) if ',' in user_args.resize else AspectRatioSizer(img=image_object)
         if ',' in user_args.resize:
-            width, height = map(int, user_args.resize.split(','))
+            width, height = user_args.resize.split(',')
+            scaler = ManualSizer(img=image_object, width=width, height=height)
             scaler.width = width
             scaler.height = height
             image_object = scaler.set_size()
             suffix = suffix + "_resized"
         else:
-            width = int(user_args.resize)
-            scaler.width = width
+            width = user_args.resize
+            scaler = AspectRatioSizer(img=image_object, width=width)
             image_object = scaler.set_size()
             suffix = suffix + "_resized"
 
@@ -116,9 +116,9 @@ def main() -> None:
             print("Done!")
 
     except FileNotFoundError as exc:
-        raise FileNotFoundError(f"The file was not found") from exc
+        raise FileNotFoundError("The file was not found") from exc
     except PermissionError as exc:
-        raise PermissionError(f"Permission denied for file") from exc
+        raise PermissionError("Permission denied for file") from exc
     except OSError as exc:
         raise OSError(f"An error occurred while opening the file: {exc}") from exc
     except Exception as exc:
