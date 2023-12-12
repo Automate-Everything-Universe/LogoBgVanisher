@@ -2,8 +2,6 @@ name: Publish Pypi
 
 on:
   push:
-    branches:
-      - '**' # Run on push to all branches
     tags:
       - 'v*.*.*' # Run on version tags for publishing
 
@@ -22,6 +20,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
           pip install twine build
+          pip install toml
+      - name: Extract Version from Git Tag
+        run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/^v//')" >> $GITHUB_ENV
+      - name: Update pyproject.toml
+        run: |
+          python -c "import toml; \
+                     pyproject = toml.load('pyproject.toml'); \
+                     pyproject['tool']['poetry']['version'] = '${{ env.VERSION }}'; \
+                     toml.dump(pyproject, open('pyproject.toml', 'w'))"
       - name: Build package
         run: |
           python -m build
