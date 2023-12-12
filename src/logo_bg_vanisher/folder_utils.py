@@ -41,6 +41,7 @@ def validate_path(path: Path) -> bool:
     """
     if not any((path.exists(), path.is_dir())):
         return False
+    return True
 
 
 def load_image(picture: Path) -> Union[Image, None]:
