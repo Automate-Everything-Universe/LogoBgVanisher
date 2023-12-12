@@ -8,7 +8,7 @@ from typing import Union
 
 from PIL import Image
 
-from src.logo_bg_vanisher.utils_validation import are_numbers_valid, is_string_valid
+from .utils_validation import are_numbers_valid, is_string_valid
 
 
 class Cropper(ABC):
