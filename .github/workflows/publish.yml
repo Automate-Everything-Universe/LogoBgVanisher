@@ -27,7 +27,7 @@ jobs:
         run: |
           python -c "import toml; \
                      pyproject = toml.load('pyproject.toml'); \
-                     pyproject['tool']['poetry']['version'] = '${{ env.VERSION }}'; \
+                     pyproject['project']['version'] = '${{ env.VERSION }}'; \
                      toml.dump(pyproject, open('pyproject.toml', 'w'))"
       - name: Build package
         run: |
