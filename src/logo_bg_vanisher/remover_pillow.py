@@ -1,10 +1,14 @@
 """
 Module which handles background removal from pics using Pillow
 """
+from typing import Tuple
+
+import PIL
 from PIL import Image
 from PIL import ImageFilter
 
 from .background_remover import BackgroundRemovalStrategy
+from .utils_validation import is_string_valid, are_numbers_valid
 
 
 class PillowBackgroundRemoval(BackgroundRemovalStrategy):
@@ -13,12 +17,14 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
     It identifies the first pixel (upper left), which is background, and not the logo itself.
     """
 
-    def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50):
+    def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50, suffix: str = "_pillow_converted"):
         super().__init__(img)
+        self.validate_image(image=img)
+        self.tolerances = are_numbers_valid(tolerance, edge_tolerance)
         self.filename = img.filename
-        self.tolerance = tolerance
-        self.edge_tolerance = edge_tolerance
-        self.suffix = "pillow_converted"
+        self.tolerance = self.tolerances[0]
+        self.edge_tolerance = self.tolerances[1]
+        self.suffix = is_string_valid(text=suffix)
 
     def remove_background(self) -> Image:
         if self.image is None or not hasattr(self.image, 'convert'):
@@ -50,3 +56,38 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
                     new_data.append(item)
         img.putdata(new_data)
         return img
+
+    @staticmethod
+    def validate_image(image: Image) -> bool:
+        """
+        Validates the image object
+        :param image: Image
+        :return: bool
+        """
+        if not isinstance(image, Image.Image):
+            raise ValueError(f"Provided object not of type {type(image)}")
+        return True
+
+    @staticmethod
+    def validate_tolerences(tolerance: int, edge_tolerance: int) -> Tuple[int, int]:
+        """
+        Validates the tolerances
+        :param tolerance: Background tolerance
+        :param edge_tolerance: Edge tolerance
+        :return: tolerance, edge_tolerance
+        """
+        if not any((isinstance(tolerance, int), isinstance(edge_tolerance, int))):
+            raise ValueError(f"Width and height are not int {type(tolerance), type(edge_tolerance)}")
+        return tolerance, edge_tolerance
+
+    @staticmethod
+    def validate_suffix(suffix_: str) -> str:
+        """
+        Validates the tolerances
+        :param suffix_: Suffix to be added to pic name
+        :return: Suffix
+        """
+        if not isinstance(suffix_, str):
+            raise ValueError(f"Suffix must be string ")
+        return suffix_
+

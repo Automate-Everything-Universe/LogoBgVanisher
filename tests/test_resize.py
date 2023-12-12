@@ -27,9 +27,10 @@ def expected_resize() -> Path:
 
 def test_autoscaler_resize(file, expected_resize):
     image_object = load_image(picture=file)
-
-    scaler_aspect_ratio = AspectRatioSizer(img=image_object)
     width = int(image_object.width / 2)  # half the size
+
+    scaler_aspect_ratio = AspectRatioSizer(img=image_object, width=width)
+
     scaler_aspect_ratio.width = width
     image_object = scaler_aspect_ratio.set_size()
 
@@ -50,9 +51,7 @@ def test_manualscaler_resize(file, expected_resize):
     image_object = load_image(picture=file)
     width, height = 256, 256
 
-    scaler_aspect_ratio = ManualSizer(img=image_object)
-    scaler_aspect_ratio.width = width
-    scaler_aspect_ratio.height = height
+    scaler_aspect_ratio = ManualSizer(img=image_object, width=width, height=height)
     image_object = scaler_aspect_ratio.set_size()
 
     image_saver = SavePic(img=image_object)

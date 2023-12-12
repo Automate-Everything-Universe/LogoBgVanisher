@@ -7,6 +7,8 @@ from typing import Union
 
 from PIL import Image
 
+from .utils_validation import are_numbers_valid
+
 
 class Sizer(ABC):
     """
@@ -29,10 +31,10 @@ class AspectRatioSizer(Sizer):
     Changes the picture size while keeping the aspect ratio.
     """
 
-    def __init__(self, img):
+    def __init__(self, img: Image, width: int):
         super().__init__(img)
         self.filename = img.filename
-        self.width: Union[None, int] = None
+        self.width = are_numbers_valid(width)
 
     def set_size(self) -> Image:
         if not self.width:
@@ -59,11 +61,10 @@ class ManualSizer(Sizer):
     Changes the picture size from user width and height
     """
 
-    def __init__(self, img):
+    def __init__(self, img: Image, width: int, height: int):
         super().__init__(img)
         self.filename = img.filename
-        self.width: Union[None, int] = None
-        self.height: Union[None, int] = None
+        self.width, self.height = are_numbers_valid(width, height)
 
     def set_size(self) -> Image:
         if not all((self.width, self.height)):

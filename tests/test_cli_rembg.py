@@ -89,3 +89,17 @@ def test_cli_rembg_cropped_and_resized(file, expected_rembg_r_and_c):
 
     # Clean up
     os.remove(expected_rembg_r_and_c)
+
+
+def test_cli_folder_rembg_cropped_and_resized(input_path, expected_rembg_r_and_c):
+    command = ["python", str(MAIN), "--folder", str(input_path), "--method", "rembg", "--crop", "auto", "--resize",
+               "256"]
+
+    result = subprocess.run(command, capture_output=True, check=True, timeout=180, cwd=TEST_FOLDER)
+
+    assert result.returncode == 0, f"Script failed with errors: {result.stderr}"
+
+    assert expected_rembg_r_and_c.exists(), "Processed image file does not exist"
+
+    # Clean up
+    os.remove(expected_rembg_r_and_c)
