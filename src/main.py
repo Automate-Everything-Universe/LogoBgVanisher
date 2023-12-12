@@ -42,7 +42,7 @@ def parse_arguments():
     )
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--file", help="File absolute path")
-    group.add_argument("--input_path", help="Folder absolute path")
+    group.add_argument("--folder", help="Folder absolute path")
 
     parser.add_argument("--method", choices=["pillow", "rembg"], required=True, help="Background removal method")
     parser.add_argument("--resize", help="Resize the image. Format: 'width,height' or 'width' for aspect ratio")
@@ -81,7 +81,7 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
 
     # Crop
     if user_args.crop:
-        if ',' in user_args.resize:
+        if ',' in user_args.crop:
             cropper = ManualCropper(img=image_object)
             cropper.dimensions = tuple(map(int, user_args.crop.split(',')))
             image_object = cropper.crop_image()
@@ -102,11 +102,11 @@ def main() -> None:
     """
     try:
         args = parse_arguments()
-        file = Path(args.file)
-        input_path = Path(args.input_path) if args.input_path else None
+        file = Path(args.file) if args.file else None
+        folder = Path(args.folder) if args.folder else None
 
-        if input_path:
-            pics = find_files(path=input_path, extension=('.png', '.jpeg'))
+        if folder:
+            pics = find_files(path=folder, extension=('.png', '.jpeg'))
             for pic in pics:
                 _process_image(pic=pic, user_args=args)
         elif file:
