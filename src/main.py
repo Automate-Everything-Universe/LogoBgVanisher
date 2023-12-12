@@ -95,7 +95,7 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
     image_saver.save_image(suffix=suffix)
 
 
-def main() -> None:
+def main() -> int:
     """
     Main entry for the CLI
     :return: None
@@ -114,15 +114,22 @@ def main() -> None:
 
         if args.verbose:
             print("Done!")
-
+            return 0
+    except ValueError as exc:
+        print(f"Invalid value provided: {exc}")
+        return 1
     except FileNotFoundError as exc:
-        raise FileNotFoundError("The file was not found") from exc
+        print(f"The file was not found: {exc}")
+        return 1
     except PermissionError as exc:
-        raise PermissionError("Permission denied for file") from exc
+        print(f"Permission denied for file: {exc}")
+        return 1
     except OSError as exc:
-        raise OSError(f"An error occurred while opening the file: {exc}") from exc
+        print(f"An error occurred while opening the file: {exc}")
+        return 1
     except Exception as exc:
-        raise Exception(f"An unexpected error occurred: {exc}") from exc
+        print(f"An unexpected error occurred: {exc}")
+        return 1
 
 
 if __name__ == "__main__":
