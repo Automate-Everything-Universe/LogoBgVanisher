@@ -49,7 +49,7 @@ logo_bg_vanisher --file <file_path> [--resize <width,height>] [--crop <method>] 
 ```
 or
 ```shell
-logo_bg_vanisher --input_path <folder_path> [--resize <width,height>] [--crop <method>] --method pillow
+logo_bg_vanisher --folder <folder_path> [--resize <width,height>] [--crop <method>] --method pillow
 ```
 
 ### Using Rembg
