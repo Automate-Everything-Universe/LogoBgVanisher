@@ -34,5 +34,5 @@ def are_numbers_valid(*args) -> Union[Tuple[int, ...], int]:
             item = int(item)
             items.append(item)
         return tuple(items)
-    except ValueError:
-        raise ValueError("Argument needs to be an integer")
+    except ValueError as exc :
+        raise ValueError("Argument needs to be an integer") from exc
