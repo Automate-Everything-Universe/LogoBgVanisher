@@ -1,3 +1,15 @@
+## v0.0.4 (2023-12-19)
+
+[GitHub release](https://github.com/Automate-Everything-Company/logo_bg_vanisher/releases/tag/v0.0.4)
+
+The code released in v0.0.4 handles iPhone's .HEIC format.
+The library saves the pictures ONLY as .png.
+
+### What's Changed
+
+* No error is raised when the user wants to work with the .HEIC format.
+
+
 ## v0.0.2 (2023-12-10)
 
 [GitHub release](https://github.com/Automate-Everything-Company/logo_bg_vanisher/releases/tag/v0.0.2)
