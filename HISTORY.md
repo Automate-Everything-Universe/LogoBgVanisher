@@ -9,6 +9,11 @@ The library saves the pictures ONLY as .png.
 
 * No error is raised when the user wants to work with the .HEIC format.
 
+## v0.0.3 (2023-12-15)
+
+[GitHub release](https://github.com/Automate-Everything-Company/logo_bg_vanisher/releases/tag/v0.0.3)
+
+Remove version from dependencies
 
 ## v0.0.2 (2023-12-10)
 
