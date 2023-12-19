@@ -20,7 +20,8 @@ classifiers = [
 dependencies = [
     "Pillow",
     "rembg",
-    "pytest"
+    "pytest",
+    "pillow_heif"
 ]
 
 [tool.setuptools]
