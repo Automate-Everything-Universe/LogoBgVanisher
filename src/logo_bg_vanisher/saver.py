@@ -2,6 +2,7 @@
 Module which handles saving the picture
 """
 from pathlib import Path
+from typing import Union
 
 from PIL import Image
 
@@ -14,7 +15,7 @@ class SavePic:
     def __init__(self, img: Image):
         self.image = img
 
-    def save_image(self, suffix: str = "converted") -> None:
+    def save_image(self, suffix: Union[str, None] = None) -> None:
         """
         Saves the image
         :param suffix: Suffix for converted images
@@ -22,7 +23,10 @@ class SavePic:
         """
         try:
             filename = Path(self.image.filename)
-            output_path = filename.parent / f"{filename.stem}{suffix}.png"
+            if suffix:
+                output_path = filename.parent / f"{filename.stem}{suffix}.png"
+            else:
+                output_path = filename.parent / f"{filename.stem}.png"
             self.image.save(output_path, "PNG")
         except OSError as exc:
             raise OSError(f"Error saving image: {exc}") from exc

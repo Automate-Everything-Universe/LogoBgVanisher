@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Union
 
 from PIL import Image
+from pillow_heif import register_heif_opener
 
 
 class ImageCreator(ABC):
@@ -42,6 +43,9 @@ class CreatePillowImage(ImageCreator):
         try:
             file_is_valid = self.validate_image(self.file)
             if file_is_valid:
+                if self.file.suffix == ".HEIC":
+                    register_heif_opener()  # https://stackoverflow.com/questions/54395735/how-to-work-with-heic-image-file-types-in-python
+                    return Image.open(self.file)
                 return Image.open(self.file)
         except FileNotFoundError as exc:
             raise FileNotFoundError(f"The file {self.file} was not found") from exc

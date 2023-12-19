@@ -1,3 +1,4 @@
 Pillow
 rembg
 pytest
+pillow_heif
