@@ -1,6 +1,7 @@
 name: Testing
 
 on:
+  pull_request:
   push:
     branches:
       - '**' # Run on push to all branches
